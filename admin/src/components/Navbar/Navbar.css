@@ -41,6 +41,27 @@
     background-color: rgba(0, 102, 204, 0.1);
 }
 
+.navbar .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar .logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout-btn:hover {
+    background-color: #d32f2f;
+}
+
 .navbar .profile {
     width: 45px;
     height: 45px;
