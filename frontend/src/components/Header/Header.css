@@ -1,0 +1,125 @@
+.header{
+    height: 85vw;
+    margin: 10px auto;
+    background: url('/header_img.png') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.header-contents{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    max-width: 85%;
+    bottom: 15%;
+    left: 20px;
+    animation: fadeIn 1.5s;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.header-contents h2{
+    font-weight: 600;
+    color: white;
+    font-size: clamp(24px, 6vw, 42px);
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.header-contents p{
+    color: white;
+    font-size: clamp(14px, 3vw, 16px);
+    max-width: 100%;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    line-height: 1.5;
+    display: none;
+}
+
+.header-contents button{
+    border: none;
+    color: #232323;
+    font-weight: 600;
+    padding: 12px 25px;
+    background: white;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    width: auto;
+    min-width: 140px;
+    text-align: center;
+}
+
+.header-contents button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.header-contents button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+@media (min-width: 576px) {
+    .header {
+        height: 60vw;
+        max-height: 500px;
+    }
+    
+    .header-contents {
+        left: 30px;
+        max-width: 70%;
+    }
+    
+    .header-contents p {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        height: 50vw;
+        margin: 25px auto;
+    }
+    
+    .header-contents {
+        gap: 20px;
+        left: 40px;
+        max-width: 60%;
+        padding: 20px;
+    }
+    
+    .header-contents button {
+        padding: 14px 30px;
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 992px) {
+    .header {
+        height: 40vw;
+        margin: 30px auto;
+    }
+    
+    .header-contents {
+        left: 5%;
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header {
+        height: 34vw;
+    }
+    
+    .header-contents {
+        gap: 25px;
+        left: 6%;
+    }
+}

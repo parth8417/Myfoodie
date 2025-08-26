@@ -1,0 +1,113 @@
+.food-display{
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.food-display h2{
+    font-size: clamp(20px, 4vw, 30px);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.food-display-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    margin-top: 20px;
+    gap: 15px;
+    row-gap: 30px;
+}
+
+.food-display-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  padding: 12px 25px;
+  border-radius: 12px;
+  border: 2px solid #FF4C24;
+  background: linear-gradient(90deg, #fff4f2 60%, #ffe0d6 100%);
+  color: #FF4C24;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255,76,36,0.10);
+  transition: 
+    background 0.18s, 
+    color 0.18s, 
+    box-shadow 0.18s, 
+    border 0.18s,
+    transform 0.16s;
+  outline: none;
+  text-align: center;
+  gap: 10px;
+}
+
+.food-display-clear-btn:hover,
+.food-display-clear-btn:focus-visible {
+  background: linear-gradient(90deg, #FF4C24 0%, #ffede7 100%);
+  color: #fff;
+  border: 2px solid #FF4C24;
+  box-shadow: 0 8px 24px rgba(255,76,36,0.15);
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.05);
+}
+
+.food-display-clear-btn:active {
+  background: #ffe0d6;
+  color: #FF4C24;
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(255,76,36,0.09);
+}
+
+/* Responsive styles */
+@media (min-width: 576px) {
+  .food-display-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    row-gap: 35px;
+  }
+  
+  .food-display-clear-btn {
+    padding: 12px 30px;
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .food-display {
+    margin-top: 25px;
+    padding: 15px 0;
+  }
+  
+  .food-display-list {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    margin-top: 25px;
+    gap: 25px;
+    row-gap: 40px;
+  }
+  
+  .food-display-clear-btn {
+    padding: 13px 35px;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
+}
+
+@media (min-width: 992px) {
+  .food-display {
+    margin-top: 30px;
+  }
+  
+  .food-display-list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+    row-gap: 50px;
+  }
+  
+  .food-display-clear-btn {
+    padding: 13px 40px;
+    font-size: 1.15rem;
+    margin-bottom: 28px;
+  }
+}

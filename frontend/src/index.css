@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import './utils/responsive.css';
+
+:root {
+  --primary-color: #FF4C24;
+  --primary-light: #FFF4F2;
+  --primary-dark: #E63A12;
+  --text-color: #262626;
+  --text-light: #747474;
+  --text-muted: #999999;
+  --background-color: #ffffff;
+  --card-shadow: 0 4px 20px rgba(44, 62, 80, 0.08);
+  --transition-smooth: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  --header-height: 70px;
+  --container-padding: 20px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, 
+input, 
+textarea {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.app {
+  width: 90%;
+  margin: auto;
+  padding-top: var(--header-height); /* offset the fixed navbar */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  :root {
+    --header-height: 80px;
+    --container-padding: 30px;
+  }
+  .app {
+    width: 85%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .app {
+    width: 80%;
+  }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) {
+  button, 
+  .button, 
+  a.button, 
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

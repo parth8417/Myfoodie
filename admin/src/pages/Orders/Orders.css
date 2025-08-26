@@ -1,0 +1,235 @@
+.order-item{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+    align-items: start;
+    gap: 30px;
+    border: none;
+    background: white;
+    box-shadow: 0 2px 8px rgba(255, 99, 71, 0.05);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    margin: 30px 0px;
+    font-size: 14px;
+    color: #505050;
+    border: 1px solid rgba(255, 99, 71, 0.08);
+    backdrop-filter: blur(10px);
+    letter-spacing: 0.2px;
+}
+.order-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: tomato;
+    opacity: 0.5;
+    box-shadow: 0 0 15px rgba(255, 99, 71, 0.2);
+}
+.order-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 16px rgba(255, 99, 71, 0.08);
+    background: linear-gradient(to right, #fff8f6, #fff);
+    border-color: rgba(255, 99, 71, 0.15);
+    backdrop-filter: blur(15px);
+}
+.order-item img {
+    width: 45px;
+    filter: drop-shadow(0 2px 4px rgba(255, 99, 71, 0.2));
+    transition: transform 0.2s ease;
+    border-radius: 8px;
+}
+.order-item:hover img {
+    transform: scale(1.05);
+}
+.order-item-food{
+    font-size: 15px;
+    color: #232323;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    font-weight: 500;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.order-item-name{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: tomato;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.order-item-address{
+    margin-bottom: 10px;
+    background: #fff8f6;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    border: 1px solid rgba(255, 99, 71, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+.order-item-phone {
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.order-item-phone::before {
+    content: '📞';
+    font-size: 12px;
+}
+.order-item select{
+    background-color: #ffe8e4;
+    border: 1px solid tomato;
+    width: max(10vw,120px);
+    padding: 10px;
+    outline:none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(255, 99, 71, 0.1);
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+}
+.order-item select:hover {
+    border-color: tomato;
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.15);
+}
+.order-item select:focus {
+    outline: none;
+    border-color: tomato;
+    box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.1);
+}
+.order.add h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #232323;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 12px;
+}
+.order.add h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, tomato, #ffaa9d);
+    border-radius: 2px;
+}
+@keyframes orderItemAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.order-item {
+    animation: orderItemAppear 0.3s ease-out forwards;
+}
+.order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: max(10vw, 120px);
+}
+
+.order-controls select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 99, 71, 0.3);
+    background-color: white;
+    color: #505050;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.order-controls select:hover {
+    border-color: tomato;
+}
+
+.control-buttons {
+    margin-top: 120px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bill-button {
+    background-color: #fff8f6;
+    border: 1px solid rgba(255, 99, 71, 0.3);
+    color: tomato;
+    padding: 12px 30px ;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-weight: 600;
+    min-width: 150px;
+    justify-content: center;
+}
+
+.bill-button:hover {
+    background-color: tomato;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.2);
+}
+
+.bill-button span {
+    font-size: 15px;
+}
+
+@media(max-width:1000px){
+    .order-item{
+        font-size: 12px;
+        grid-template-columns: 0.5fr 2fr 1fr;
+        padding: 15px 8px;
+        gap: 15px;
+        margin: 20px 0px;
+    }
+    .order-item select{
+        padding: 5px;
+        font-size: 12px;
+    }
+    .order-item img{
+        width: 40px;
+    }
+    .order-item-name {
+        margin-top: 20px;
+    }
+    .order-item-address {
+        padding: 6px 10px;
+    }
+    .order-controls {
+        min-width: 120px;
+        gap: 8px;
+    }
+    
+    .bill-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 150px;
+    }
+}

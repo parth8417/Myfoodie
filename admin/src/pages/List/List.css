@@ -1,0 +1,220 @@
+.list-table {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 10px;
+}
+
+.list-table-format {
+    display: grid;
+    grid-template-columns: 100px 280px 180px 120px 200px;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.list-table-format:hover {
+    background-color: #f8f9fa;
+}
+
+.list-table-format.title {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.list-table-format img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.list-table-format input,
+.list-table-format select {
+    padding: 8px 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.list-table-format input:focus,
+.list-table-format select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.action-buttons button:first-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.action-buttons button:first-child:hover {
+    background-color: #45a049;
+}
+
+.action-buttons button:last-child {
+    background-color: #f44336;
+    color: white;
+}
+
+.action-buttons button:last-child:hover {
+    background-color: #da190b;
+}
+
+.list.add {
+    padding: 20px;
+}
+
+.list.add > p {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.list.add header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.list.add header .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.list.add header .header-title {
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+}
+
+.list.add header .header-subtitle {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.list.add header .total-items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+.list.add header .total-items:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+}
+
+/* Price column alignment */
+.list-table-format > *:nth-child(4),
+.list-table-format.title > b:nth-child(4) {
+    text-align: center;
+}
+
+/* Category column alignment */
+.list-table-format > *:nth-child(3),
+.list-table-format.title > b:nth-child(3) {
+    text-align: center;
+}
+
+.list-table-format input[name="price"] {
+    text-align: center;
+}
+
+.list-table-format select {
+    text-align: center;
+    text-align-last: center;
+}
+
+/* Center align the action buttons container */
+.list-table-format > *:nth-child(5),
+.list-table-format.title > b:nth-child(5) {
+    text-align: center;
+    justify-self: center;
+}
+
+@media(max-width:1200px) {
+    .list-table-format {
+        grid-template-columns: 90px 250px 150px 100px 160px;
+    }
+}
+
+@media(max-width:800px) {
+    .list-table-format {
+        grid-template-columns: 80px 200px 120px 100px 150px;
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .list-table {
+        margin: 10px;
+    }
+}
+
+@media(max-width:600px) {
+    .list-table-format {
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .list-table-format.title {
+        display: none;
+    }
+    
+    .list-table-format img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .list.add header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .list.add header .header-title {
+        font-size: 24px;
+    }
+}

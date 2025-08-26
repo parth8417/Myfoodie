@@ -1,0 +1,143 @@
+/* Responsive Utility Classes */
+
+/* Responsive containers */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Responsive spacing */
+.mt-small { margin-top: 10px; }
+.mt-medium { margin-top: 20px; }
+.mt-large { margin-top: 30px; }
+
+.mb-small { margin-bottom: 10px; }
+.mb-medium { margin-bottom: 20px; }
+.mb-large { margin-bottom: 30px; }
+
+.p-small { padding: 10px; }
+.p-medium { padding: 20px; }
+.p-large { padding: 30px; }
+
+/* Touch-friendly elements */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Hide and show based on screen size */
+.mobile-only {
+  display: block;
+}
+
+.desktop-only {
+  display: none;
+}
+
+/* Mobile-first flexbox utils */
+.flex-column-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center content vertically and horizontally */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive typography */
+.text-small {
+  font-size: clamp(12px, 3vw, 14px);
+}
+
+.text-medium {
+  font-size: clamp(14px, 3.5vw, 16px);
+}
+
+.text-large {
+  font-size: clamp(18px, 4vw, 24px);
+}
+
+.text-heading {
+  font-size: clamp(22px, 5vw, 32px);
+}
+
+/* Responsive images */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media queries for responsive breakpoints */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  
+  .mt-small { margin-top: 12px; }
+  .mt-medium { margin-top: 25px; }
+  .mt-large { margin-top: 40px; }
+  
+  .mb-small { margin-bottom: 12px; }
+  .mb-medium { margin-bottom: 25px; }
+  .mb-large { margin-bottom: 40px; }
+  
+  .p-small { padding: 12px; }
+  .p-medium { padding: 25px; }
+  .p-large { padding: 40px; }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+  
+  .flex-column-mobile {
+    flex-direction: row;
+  }
+  
+  .mobile-only {
+    display: none;
+  }
+  
+  .desktop-only {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+  
+  .mt-small { margin-top: 15px; }
+  .mt-medium { margin-top: 30px; }
+  .mt-large { margin-top: 50px; }
+  
+  .mb-small { margin-bottom: 15px; }
+  .mb-medium { margin-bottom: 30px; }
+  .mb-large { margin-bottom: 50px; }
+  
+  .p-small { padding: 15px; }
+  .p-medium { padding: 30px; }
+  .p-large { padding: 50px; }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
