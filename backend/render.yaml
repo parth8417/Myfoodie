@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: myfoodie-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.16.0
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+    disk:
+      name: uploads
+      mountPath: /uploads
+      sizeGB: 1
