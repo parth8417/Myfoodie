@@ -43,6 +43,8 @@ const Cart = () => {
     }
   };
 
+  const [appliedPromo, setAppliedPromo] = useState(null);
+
   const handlePromoCode = async () => {
     if (!promoCode.trim()) {
       setPromoStatus({ message: 'Please enter a promo code', type: 'error' });
@@ -51,25 +53,39 @@ const Cart = () => {
 
     setIsApplyingPromo(true);
     try {
-      // Add your promo code validation logic here
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const response = await fetch(`${url}/api/promocode/validate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          code: promoCode.trim(),
+          orderAmount: getTotalCartAmount() 
+        }),
+      });
       
-      if (promoCode.toLowerCase() === 'welcome10') {
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setAppliedPromo(data.promoCode);
         setPromoStatus({ 
-          message: 'Promo code applied! 10% off', 
+          message: `${data.promoCode.description || 'Promo code applied successfully!'}`, 
           type: 'success' 
         });
       } else {
         setPromoStatus({ 
-          message: 'Invalid promo code', 
+          message: data.message || 'Invalid promo code', 
           type: 'error' 
         });
+        setAppliedPromo(null);
       }
     } catch (error) {
+      console.error('Error validating promo code:', error);
       setPromoStatus({ 
         message: 'Error applying promo code', 
         type: 'error' 
       });
+      setAppliedPromo(null);
     } finally {
       setIsApplyingPromo(false);
     }
@@ -205,10 +221,10 @@ const Cart = () => {
                 <span>Delivery Fee</span>
                 <span>{currency}{getTotalCartAmount() === 0 ? 0 : deliveryCharge}</span>
               </div>
-              {promoStatus.type === 'success' && (
+              {promoStatus.type === 'success' && appliedPromo && (
                 <div className="summary-row discount">
-                  <span>Discount</span>
-                  <span>-{currency}{(getTotalCartAmount() * 0.1).toFixed(2)}</span>
+                  <span>Discount {appliedPromo.isPercentage ? `(${appliedPromo.discount}%)` : ''}</span>
+                  <span>-{currency}{appliedPromo.discountAmount}</span>
                 </div>
               )}
               <div className="summary-row total">
@@ -217,9 +233,9 @@ const Cart = () => {
                   {currency}
                   {getTotalCartAmount() === 0 
                     ? 0 
-                    : promoStatus.type === 'success'
-                      ? (getTotalCartAmount() * 0.9 + deliveryCharge).toFixed(2)
-                      : getTotalCartAmount() + deliveryCharge
+                    : promoStatus.type === 'success' && appliedPromo
+                      ? (getTotalCartAmount() - parseFloat(appliedPromo.discountAmount) + deliveryCharge).toFixed(2)
+                      : (getTotalCartAmount() + deliveryCharge).toFixed(2)
                   }
                 </strong>
               </div>
