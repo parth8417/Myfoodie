@@ -580,4 +580,175 @@
   .cart-heading {
     font-size: 24px;
   }
+
+  .cart-desc {
+    font-size: 14px;
+  }
+
+  .cart-content {
+    gap: 20px;
+  }
+
+  .cart-items {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .cart-item {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 12px;
+    margin: 0;
+  }
+
+  .cart-item::before {
+    display: none;
+  }
+
+  .cart-item-info {
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .cart-item-info img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cart-item-price,
+  .cart-item-total {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fafafa;
+    width: 100%;
+  }
+
+  .cart-item-price::before,
+  .cart-item-total::before {
+    margin-right: 8px;
+  }
+
+  .cart-qty-control {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .cart-qty-control::before {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .cart-qty-control button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .cart-qty-control span {
+    width: 36px;
+    font-size: 15px;
+  }
+
+  .remove-item-btn {
+    align-self: flex-end;
+    width: 36px;
+    height: 36px;
+  }
+
+  .cart-total {
+    padding: 20px;
+  }
+
+  .cart-total h2 {
+    font-size: 20px;
+  }
+
+  .summary-row {
+    padding: 10px 0;
+  }
+
+  .summary-row.total {
+    margin: 20px -12px;
+    padding: 16px 12px;
+  }
+
+  .promo-input {
+    flex-direction: column;
+  }
+
+  .promo-input input,
+  .promo-input button {
+    width: 100%;
+  }
+
+  .promo-input button {
+    padding: 14px;
+  }
+
+  .checkout-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cart {
+    padding: 0 12px;
+  }
+
+  .cart-item {
+    padding: 14px;
+  }
+
+  .cart-item-info img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .cart-item-price,
+  .cart-item-total {
+    font-size: 14px;
+  }
+
+  .cart-item-price::before,
+  .cart-item-total::before,
+  .cart-qty-control::before {
+    font-size: 13px;
+  }
+
+  .cart-qty-control {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .cart-qty-control button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .cart-qty-control span {
+    width: 32px;
+    font-size: 14px;
+  }
+
+  .promo-input input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .promo-input button {
+    padding: 12px;
+  }
+
+  .checkout-btn {
+    font-size: 14px;
+  }
 }

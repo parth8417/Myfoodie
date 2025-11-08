@@ -5,37 +5,47 @@ import { FaPhone, FaEnvelope } from 'react-icons/fa'
 
 const Footer = () => {
   return (
-    <div className='footer' id='footer'>
+    <footer className='footer' id='footer'>
       <div className="footer-content">
         <div className="footer-content-left">
-            <img src={assets.logo} alt="Logo" className="footer-logo" />
-            <p className="footer-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            <div className="footer-social-icons">
-                <a href="#"><img src={assets.facebook_icon} alt="Facebook" /></a>
-                <a href="#"><img src={assets.twitter_icon} alt="Twitter" /></a>
-                <a href="#"><img src={assets.linkedin_icon} alt="LinkedIn" /></a>
-            </div>
+          <img src={assets.logo} alt="Myfoodie" className="footer-logo" />
+          <p className="footer-description">
+            Fresh meals, fast delivery, and support on standby so a great bite is always within reach.
+          </p>
+          <div className="footer-social-icons">
+            <a href="#" aria-label="Facebook">
+              <img src={assets.facebook_icon} alt="Facebook" />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <img src={assets.twitter_icon} alt="Twitter" />
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <img src={assets.linkedin_icon} alt="LinkedIn" />
+            </a>
+          </div>
         </div>
-        <div className="footer-content-center">
-            <h2 className="footer-heading">COMPANY</h2>
+        <div className="footer-columns">
+          <div className="footer-block">
+            <h2 className="footer-heading">Company</h2>
             <ul className="footer-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Delivery</a></li>
-                <li><a href="#">Privacy policy</a></li>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Delivery</a></li>
+              <li><a href="#">Privacy</a></li>
             </ul>
-        </div>
-        <div className="footer-content-right">
-            <h2 className="footer-heading">GET IN TOUCH</h2>
+          </div>
+          <div className="footer-block">
+            <h2 className="footer-heading">Get in touch</h2>
             <ul className="footer-contact">
-                <li><FaPhone className="contact-icon" /> +1-212-456-7890</li>
-                <li><FaEnvelope className="contact-icon" /> contact@Myfoodie.com</li>
+              <li><FaPhone className="contact-icon" /> +1-212-456-7890</li>
+              <li><FaEnvelope className="contact-icon" /> support@myfoodie.com</li>
             </ul>
+          </div>
         </div>
       </div>
       <div className="footer-divider"></div>
-      <p className="footer-copyright">Copyright 2024 © Myfoodie.com - All Right Reserved.</p>
-    </div>
+      <p className="footer-copy">© {new Date().getFullYear()} Myfoodie. All rights reserved.</p>
+    </footer>
   )
 }
 

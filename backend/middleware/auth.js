@@ -3,15 +3,19 @@ import User from '../models/userModel.js';
 
 // Protect routes - require user to be authenticated
 export const protect = async (req, res, next) => {
-    const { token } = req.headers;
+    const authHeader = req.headers.authorization || '';
+    const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+    const headerToken = req.headers.token;
+    const token = bearerToken || headerToken;
+
     if (!token) {
         return res.status(401).json({success:false, message:'Not authorized, no token'});
     }
-    
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.body.userId = decoded.id;
-        
+
         // Add user data to request object
         req.user = await User.findById(decoded.id).select('-password');
         next();

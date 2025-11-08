@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { 
   MdRestaurant, 
   MdDeliveryDining, 
@@ -20,7 +20,7 @@ import './MyOrders.css'
 import axios from 'axios'
 import { StoreContext } from '../../Context/StoreContext';
 import { assets } from '../../assets/assets';
-import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
+import { useNavigate } from 'react-router-dom'; // Add useNavigate
 
 const MyOrders = () => {
   const [data, setData] = useState([]);
@@ -30,22 +30,46 @@ const MyOrders = () => {
   const [sortBy, setSortBy] = useState('date');
   const [trackingOrder, setTrackingOrder] = useState(null);
   const [imageError, setImageError] = useState(false); // Add state to track image loading errors
-  const { url, token, currency } = useContext(StoreContext);
+  const { url, token, currency, setToken } = useContext(StoreContext);
   const navigate = useNavigate(); // Add this hook
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
+    if (!token) {
+      setLoading(false);
+      setData([]);
+      setError('Please sign in to view your orders.');
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post(url+"/api/order/userorders", {}, { headers: { token } });
-      setData(response.data.data.reverse());
+      const response = await axios.post(
+        `${url}/api/order/userorders`,
+        {},
+        {
+          headers: {
+            token,
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      const orders = Array.isArray(response.data.data) ? [...response.data.data] : [];
+      setData(orders.reverse());
     } catch (err) {
-      setError('Failed to fetch orders. Please try again.');
+      if (err.response?.status === 401) {
+        setError('Your session has expired. Please sign in again.');
+        setData([]);
+        localStorage.removeItem('token');
+        setToken('');
+      } else {
+        setError('Failed to fetch orders. Please try again.');
+      }
       console.error("Error fetching orders:", err);
     } finally {
       setLoading(false);
     }
-  }
+  }, [token, url, setToken]);
 
   const filteredOrders = React.useMemo(() => {
     let result = [...data];
@@ -68,19 +92,25 @@ const MyOrders = () => {
   }, [data, filterStatus, sortBy]);
 
   useEffect(() => {
-    if (token) {
-      fetchOrders();
+    if (!token) {
+      setLoading(false);
+      setData([]);
+      setError(prev => prev || 'Please sign in to view your orders.');
+      return;
     }
-    
-    // Set up refresh interval (every 2 minutes)
+
+    fetchOrders();
+
+    if (!trackingOrder) {
+      return () => {};
+    }
+
     const intervalId = setInterval(() => {
-      if (token && trackingOrder) {
-        fetchOrders();
-      }
+      fetchOrders();
     }, 2 * 60 * 1000);
-    
+
     return () => clearInterval(intervalId);
-  }, [token]);
+  }, [token, trackingOrder, fetchOrders]);
 
   const getStatusSteps = (status) => {
     const steps = [

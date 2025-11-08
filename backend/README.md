@@ -22,6 +22,7 @@ Make sure to set these environment variables in the Render dashboard:
 - `PORT`: Port for the server (Render will provide a `PORT` automatically)
 - `MONGO_URI`: Your MongoDB connection string
 - `JWT_SECRET`: Secret key for JWT token generation
+- `FRONTEND_URL`: Base URL for redirecting users after payments (e.g., `https://your-frontend.example`)
 
 ### Static File Hosting
 
