@@ -71,6 +71,39 @@ const MyOrders = () => {
     }
   }, [token, url, setToken]);
 
+  const resolveOrderDate = React.useCallback((orderOrValue) => {
+    const parseValue = (value) => {
+      if (!value) return null;
+      const parsed = new Date(value);
+      if (!isNaN(parsed.getTime())) {
+        return parsed;
+      }
+      return null;
+    };
+
+    if (!orderOrValue) return null;
+
+    // Support direct date strings/numbers/Date instances
+    if (typeof orderOrValue === 'string' || typeof orderOrValue === 'number' || orderOrValue instanceof Date) {
+      return parseValue(orderOrValue);
+    }
+
+    const candidates = [
+      orderOrValue.createdAt,
+      orderOrValue.date,
+      orderOrValue.updatedAt,
+    ];
+
+    for (const candidate of candidates) {
+      const parsed = parseValue(candidate);
+      if (parsed) {
+        return parsed;
+      }
+    }
+
+    return null;
+  }, []);
+
   const filteredOrders = React.useMemo(() => {
     let result = [...data];
     
@@ -83,13 +116,17 @@ const MyOrders = () => {
 
     // Apply sorting
     if (sortBy === 'date') {
-      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      result.sort((a, b) => {
+        const bDate = resolveOrderDate(b)?.getTime() || 0;
+        const aDate = resolveOrderDate(a)?.getTime() || 0;
+        return bDate - aDate;
+      });
     } else if (sortBy === 'amount') {
       result.sort((a, b) => b.amount - a.amount);
     }
 
     return result;
-  }, [data, filterStatus, sortBy]);
+  }, [data, filterStatus, sortBy, resolveOrderDate]);
 
   useEffect(() => {
     if (!token) {
@@ -147,26 +184,19 @@ const MyOrders = () => {
   };
 
   // Improved format date function with direct string parsing fallback
-  const formatOrderDate = (dateStr) => {
+  const formatOrderDate = (orderOrValue) => {
     try {
-      // Try direct string approach first for consistent display
-      if (dateStr && typeof dateStr === 'string') {
-        // Parse the ISO date string
-        const date = new Date(dateStr);
-        
-        // Check if date is valid by checking if it's not NaN
-        if (!isNaN(date.getTime())) {
-          // Format to show date in a nice readable format
-          return date.toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          });
-        }
+      const date = resolveOrderDate(orderOrValue);
+
+      if (date) {
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
       }
-      
-      // If we can't parse the date, just show the raw value or a fallback
-      return dateStr || 'Date unavailable';
+
+      return 'Date unavailable';
     } catch (error) {
       console.error("Error formatting date:", error);
       return 'Date unavailable';
@@ -174,24 +204,16 @@ const MyOrders = () => {
   };
 
   // Improved format time function with direct string parsing fallback
-  const formatOrderTime = (dateStr) => {
+  const formatOrderTime = (orderOrValue) => {
     try {
-      // Try direct string approach first for consistent display
-      if (dateStr && typeof dateStr === 'string') {
-        // Parse the ISO date string
-        const date = new Date(dateStr);
-        
-        // Check if date is valid by checking if it's not NaN
-        if (!isNaN(date.getTime())) {
-          // Format to show just the time portion
-          return date.toLocaleString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-        }
+      const date = resolveOrderDate(orderOrValue);
+      if (date) {
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
       }
-      
-      // If we can't parse the time, just show a fallback
+
       return 'Time unavailable';
     } catch (error) {
       console.error("Error formatting time:", error);
@@ -278,10 +300,10 @@ const MyOrders = () => {
           filteredOrders.map((order, index) => {
             const { steps, currentIndex } = getStatusSteps(order.status);
             const isTracking = trackingOrder === order._id;
-            
-            // Use our new formatting functions directly inline
-            const orderDate = formatOrderDate(order.createdAt);
-            const orderTime = formatOrderTime(order.createdAt);
+
+            const orderDateValue = resolveOrderDate(order);
+            const orderDate = formatOrderDate(orderDateValue || order);
+            const orderTime = formatOrderTime(orderDateValue || order);
             
             return (
               <div 
