@@ -17,6 +17,7 @@ const placeOrder = async (req, res) => {
             items: req.body.items,
             amount: req.body.amount,
             address: req.body.address,
+            promoCode: req.body.promoCode || null,
         })
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
@@ -68,6 +69,7 @@ const placeOrderCod = async (req, res) => {
             amount: req.body.amount,
             address: req.body.address,
             payment: true,
+            promoCode: req.body.promoCode || null,
         })
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });

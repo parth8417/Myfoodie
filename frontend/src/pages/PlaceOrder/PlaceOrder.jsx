@@ -21,7 +21,7 @@ const PlaceOrder = () => {
         phone: ""
     })
 
-    const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems,currency,deliveryCharge } = useContext(StoreContext);
+    const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems,currency,deliveryCharge, appliedPromo, setAppliedPromo } = useContext(StoreContext);
 
     const navigate = useNavigate();
 
@@ -30,6 +30,18 @@ const PlaceOrder = () => {
         const value = event.target.value
         setData(data => ({ ...data, [name]: value }))
     }
+
+    const subtotal = getTotalCartAmount();
+    const promoDiscount = appliedPromo ? Math.min(Number(appliedPromo.discountAmount) || 0, subtotal) : 0;
+    const payableSubtotal = Math.max(subtotal - promoDiscount, 0);
+    const payableAmount = subtotal === 0 ? 0 : payableSubtotal + deliveryCharge;
+    const promoPayload = appliedPromo ? {
+        code: appliedPromo.code,
+        discount: appliedPromo.discount,
+        isPercentage: appliedPromo.isPercentage,
+        discountAmount: promoDiscount,
+        description: appliedPromo.description
+    } : null;
 
     const placeOrder = async (e) => {
         e.preventDefault()
@@ -44,7 +56,8 @@ const PlaceOrder = () => {
         let orderData = {
             address: data,
             items: orderItems,
-            amount: getTotalCartAmount() + deliveryCharge,
+            amount: payableAmount,
+            promoCode: promoPayload
         }
         if (payment === "stripe") {
             let response = await axios.post(url + "/api/order/place", orderData, { headers: { token } });
@@ -62,6 +75,7 @@ const PlaceOrder = () => {
                 navigate("/myorders")
                 toast.success(response.data.message)
                 setCartItems({});
+                setAppliedPromo(null);
             }
             else {
                 toast.error("Something Went Wrong")
@@ -106,17 +120,26 @@ const PlaceOrder = () => {
                     <div>
                         <div className="order-summary-details">
                             <p>Subtotal</p>
-                            <p>{currency}{getTotalCartAmount()}</p>
+                            <p>{currency}{subtotal.toFixed(2)}</p>
                         </div>
+                        {appliedPromo && (
+                            <>
+                                <hr />
+                                <div className="order-summary-details discount">
+                                    <p>Promo Discount ({appliedPromo.code})</p>
+                                    <p>-{currency}{promoDiscount.toFixed(2)}</p>
+                                </div>
+                            </>
+                        )}
                         <hr />
                         <div className="order-summary-details">
                             <p>Delivery Fee</p>
-                            <p>{currency}{getTotalCartAmount() === 0 ? 0 : deliveryCharge}</p>
+                            <p>{currency}{subtotal === 0 ? 0 : deliveryCharge}</p>
                         </div>
                         <hr />
                         <div className="order-summary-details">
                             <b>Total Amount</b>
-                            <b>{currency}{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + deliveryCharge}</b>
+                            <b>{currency}{payableAmount.toFixed(2)}</b>
                         </div>
                     </div>
                 </div>

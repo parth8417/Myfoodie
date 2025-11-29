@@ -45,12 +45,12 @@ const promoCodes = [
   {
     code: 'SAGARSIR',
     discount: 100,
-    isPercentage: false,
+    isPercentage: true,
     minOrderAmount: 0,
     maxDiscountAmount: null,
     endDate: endDate,
     isActive: true,
-    description: 'Flat ₹100 off on all orders for our beloved Sagar Sir'
+    description: 'Flat 100% off on all orders for our beloved Sagar Sir'
   }
 ];
 

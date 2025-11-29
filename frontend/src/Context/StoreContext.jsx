@@ -11,6 +11,7 @@ const StoreContextProvider = (props) => {
     const [token, setToken] = useState("")
     const currency = "₹";
     const deliveryCharge = 50;
+    const [appliedPromo, setAppliedPromo] = useState(null);
 
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
@@ -76,6 +77,13 @@ const StoreContextProvider = (props) => {
         loadData()
     }, [])
 
+    useEffect(() => {
+        const hasItems = Object.values(cartItems || {}).some(quantity => quantity > 0);
+        if (!hasItems && appliedPromo) {
+            setAppliedPromo(null);
+        }
+    }, [cartItems, appliedPromo])
+
     const contextValue = {
         url,
         food_list,
@@ -89,7 +97,9 @@ const StoreContextProvider = (props) => {
         loadCartData,
         setCartItems,
         currency,
-        deliveryCharge
+        deliveryCharge,
+        appliedPromo,
+        setAppliedPromo
     };
 
     return (

@@ -5,7 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
 
 const Cart = () => {
-  const {cartItems, food_list, removeFromCart,getTotalCartAmount,url,currency,deliveryCharge,addToCart,setCartItems,token,loadCartData} = useContext(StoreContext);
+  const {
+    cartItems,
+    food_list,
+    removeFromCart,
+    getTotalCartAmount,
+    url,
+    currency,
+    deliveryCharge,
+    addToCart,
+    setCartItems,
+    token,
+    loadCartData,
+    appliedPromo,
+    setAppliedPromo
+  } = useContext(StoreContext);
   const navigate = useNavigate();
   const [promoCode, setPromoCode] = useState('');
   const [promoStatus, setPromoStatus] = useState({ message: '', type: '' });
@@ -43,8 +57,6 @@ const Cart = () => {
     }
   };
 
-  const [appliedPromo, setAppliedPromo] = useState(null);
-
   const handlePromoCode = async () => {
     if (!promoCode.trim()) {
       setPromoStatus({ message: 'Please enter a promo code', type: 'error' });
@@ -67,7 +79,11 @@ const Cart = () => {
       const data = await response.json();
       
       if (response.ok && data.success) {
-        setAppliedPromo(data.promoCode);
+        const normalizedPromo = {
+          ...data.promoCode,
+          discountAmount: Number(data.promoCode.discountAmount)
+        };
+        setAppliedPromo(normalizedPromo);
         setPromoStatus({ 
           message: `${data.promoCode.description || 'Promo code applied successfully!'}`, 
           type: 'success' 
@@ -234,7 +250,7 @@ const Cart = () => {
                   {getTotalCartAmount() === 0 
                     ? 0 
                     : promoStatus.type === 'success' && appliedPromo
-                      ? (getTotalCartAmount() - parseFloat(appliedPromo.discountAmount) + deliveryCharge).toFixed(2)
+                      ? (getTotalCartAmount() - Number(appliedPromo.discountAmount) + deliveryCharge).toFixed(2)
                       : (getTotalCartAmount() + deliveryCharge).toFixed(2)
                   }
                 </strong>
